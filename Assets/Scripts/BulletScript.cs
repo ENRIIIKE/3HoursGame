@@ -9,14 +9,13 @@ public class BulletScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy"))
+        if (collision.GetComponent<IDamagable>() != null)
         {
             IDamagable doDamage = collision.GetComponent<IDamagable>();
 
             doDamage.GetDamage(damage);
         }
 
-        //Particles
         if (!collision.CompareTag("Player"))
         {
             Destroy(gameObject);

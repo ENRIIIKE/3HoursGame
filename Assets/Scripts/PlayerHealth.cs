@@ -6,6 +6,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
 {
     public int health;
     public int maxHealth;
+    public bool isDead;
 
     void Start()
     {
@@ -22,7 +23,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
             health -= damage;
         }
 
-        //Particles
+        GameManager.Instance.Health(health);
 
         CheckHealth();
     }
@@ -30,8 +31,9 @@ public class PlayerHealth : MonoBehaviour, IDamagable
     {
         if (health <= 0)
         {
-            //Particles
-            //Player Dead
+            isDead = true;
+            GetComponent<PlayerController>().canMove = false;
+            GameManager.Instance.EndGame();
         }
     }
 }
